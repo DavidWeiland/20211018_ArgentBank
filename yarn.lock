@@ -5098,6 +5098,13 @@
   "resolved" "https://registry.npmjs.org/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz"
   "version" "2.0.6"
 
+"fast-xml-parser@^3.19.0":
+  "integrity" "sha512-FfHJ/QCpo4K2gquBX7dIAcmShSBG4dMtYJ3ghSiR4w7YqlUujuamrM57C+mKLNWS3mvZzmm2B2Qx8Q6Gfw+lDQ=="
+  "resolved" "https://registry.npmjs.org/fast-xml-parser/-/fast-xml-parser-3.20.3.tgz"
+  "version" "3.20.3"
+  dependencies:
+    "strnum" "^1.0.4"
+
 "fastq@^1.6.0":
   "integrity" "sha512-AWuv6Ery3pM+dY7LYS8YIaCiQvUaos9OB1RyNgaOWnaX+Tik7Onvcsf8x8c+YtDeT0maYLniBip2hox5KtEXXA=="
   "resolved" "https://registry.npmjs.org/fastq/-/fastq-1.10.1.tgz"
@@ -6352,6 +6359,13 @@
   "version" "3.0.0"
   dependencies:
     "html-comment-regex" "^1.1.0"
+
+"is-svg@^4.3.1":
+  "integrity" "sha512-h2CGs+yPUyvkgTJQS9cJzo9lYK06WgRiXUqBBHtglSzVKAuH4/oWsqk7LGfbSa1hGk9QcZ0SyQtVggvBA8LZXA=="
+  "resolved" "https://registry.npmjs.org/is-svg/-/is-svg-4.3.1.tgz"
+  "version" "4.3.1"
+  dependencies:
+    "fast-xml-parser" "^3.19.0"
 
 "is-symbol@^1.0.2":
   "integrity" "sha512-OwijhaRSgqvhm/0ZdAcXNZt9lYdKFpcRDT5ULUuYXPoT794UNOdU+gpT6Rzo7b4V2HUl/op6GqY894AZwv9faQ=="
@@ -10913,6 +10927,11 @@
   "integrity" "sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig=="
   "resolved" "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-3.1.1.tgz"
   "version" "3.1.1"
+
+"strnum@^1.0.4":
+  "integrity" "sha512-lMzNMfDpaQOLt4B2mEbfzYS0+T7dvCXeojnlGf6f1AygvWDMcWyXYaLbyICfjVu29sErR8fnRagQfBW/N/hGgw=="
+  "resolved" "https://registry.npmjs.org/strnum/-/strnum-1.0.4.tgz"
+  "version" "1.0.4"
 
 "style-loader@1.3.0":
   "integrity" "sha512-V7TCORko8rs9rIqkSrlMfkqA63DfoGBBJmK1kKGCcSi+BWb4cqz0SRsnp4l6rU5iwOEd0/2ePv68SV22VXon4Q=="
