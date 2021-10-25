@@ -1,11 +1,14 @@
 import '../../utils/Style/main.css'
 import Logo from '../../assets/Images/argentBankLogo.png'
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+import {reset} from '../../utils/store'
 
 
 function Header() {
-
-  const userSigned = true //envoyé par le store
+  
+  const username = useSelector((state) => state.username)
+  const dispatch = useDispatch()
 
   return (
     <nav className="main-nav">
@@ -17,20 +20,20 @@ function Header() {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      {(userSigned) ? (
+      {(!username) ? (
         <div>
-        <Link className="main-nav-item" to="/sign-in">
+        <Link className="main-nav-item" to="/login">
             <i className="fa fa-user-circle"></i>
             Sign In
         </Link>
       </div>
       ) : (
         <div>
-        <Link className="main-nav-item" to="/user">
+        <Link className="main-nav-item" to="/profile">
           <i className="fa fa-user-circle"></i>
-          Tony
+          {username.split(' ')[0]}
         </Link>
-        <Link className="main-nav-item" to="/">
+        <Link className="main-nav-item" onClick={() => dispatch(reset())} to="/">
           <i className="fa fa-sign-out"></i>
           Sign Out
         </Link>
