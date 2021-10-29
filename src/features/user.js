@@ -64,23 +64,36 @@ export async function resetUser(store) {
     store.dispatch(userReset())
 }
 
-export async function getOrModifyUser(store, method, body) {
+export async function getOrModifyUser(store, body, headers) {
     const status = store.getState().user.status
-    const token = store.getState().user.token
-    const headers = { headers:{"Authorization": `Bearer ${token}`} }
-    console.log(headers)
     if (status === 'pending' || status === 'updating') {
       return 
     }
     store.dispatch(userFetching())
     try {
-      const res = await axios({method:method, url:`${baseUrl}/user/profile`, body, headers:headers})
+      const res = await axios.post(`${baseUrl}/user/profile`, body, headers)
       const data = await res.data.body
       store.dispatch(userResolved(data))
     }
     catch (error) {
       store.dispatch(userRejected(error))
     }
+}
+
+export async function UpdateUser(store, body, headers) {
+  const status = store.getState().user.status
+  if (status === 'pending' || status === 'updating') {
+    return
+  }
+  store.dispatch(userFetching())
+  try {
+    const response = await axios.put(`${baseUrl}/user/profile`, body, headers)
+    const data = await response.data.body
+    store.dispatch(userResolved(data))
+  }
+  catch (error) {
+    store.dispatch(userRejected(error))
+  }
 }
 
 export default function userReducer(state = initialState, action) {
