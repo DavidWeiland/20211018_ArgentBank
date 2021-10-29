@@ -1,8 +1,8 @@
 import '../../utils/Style/main.css'
 import { useState } from 'react'
 import { useStore } from 'react-redux'
-import { authorizeUser } from '../../features/user'
-import { Link, useHistory } from 'react-router-dom'
+import { getOrModifyUser } from '../../utils/callMethod/User'
+import { useHistory } from 'react-router-dom'
 
 export default function Login() {
   const store = useStore()
@@ -28,12 +28,14 @@ export default function Login() {
   const history = useHistory()
 
   function connection() {
+    const method = 'post'
+    const path = '/login'
     const body = {
       email: email,
-      password:password
+      password: password,
     }
-    authorizeUser(store, body)
-    //console.log(store.getState().auth.data.token)
+    const token = ''
+    getOrModifyUser(store, method, path, body, token)
     history.push('/user')
   }
   
@@ -55,13 +57,9 @@ export default function Login() {
             <input type="checkbox" id="remember-me" name='RememberMe' checked={rememberMe} onChange={handleChange}/>
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          <button className="sign-in-button" onClick={() => { connection() }}
-          >
+          <button className="sign-in-button" onClick={() => { connection() }}>
             Sign In
           </button>
-          <Link className="main-nav-item" to="/newUser">
-            Or click here to create an account
-        </Link>
         </form>
       </section>
     </main>

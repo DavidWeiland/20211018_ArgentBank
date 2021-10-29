@@ -1,29 +1,33 @@
 import '../../utils/Style/main.css'
-//import { useEffect, useState } from 'react'
-//import { useHistory } from 'react-router'
-//import { useStore } from 'react-redux'
-//import { getOrModifyUser } from '../../features/user'
+import { useEffect } from 'react'
+import {useHistory} from 'react-router-dom'
+import { useSelector, useStore } from 'react-redux'
+import { selectUser } from '../../utils/selectors'
+import { getOrModifyUser } from '../../utils/callMethod/User'
+
 
 function User() {
-  //const store = useStore()
-  //const history = useHistory()
+  const userInfos = useSelector(selectUser)
 
-  /* useEffect(() => {
-    getOrModifyUser(store, { method: 'post' })
-    console.log(connexion)
-  }, [store])
- */
-  //console.log(store.getState().user.data.firstName)
+  const firstName = userInfos.data?.firstName
+  const lastName = userInfos.data?.lastName
+    
+  const store = useStore()
+  const history = useHistory()
   
-  /* if (store.getState().auth.status !== 'authorized') {
-    history.push('/user')
-  } else {} */
+  const token = userInfos.auth?.token
+  useEffect(() => {
+    const method = 'post'
+    const path = '/profile'
+    const body = {}
+    getOrModifyUser(store, method, path, body, token)
+  }, [store, token])
 
   return (
     <main className="main bg-dark">
       <div className="header">
-        <h1>Welcome back<br /> ici le nom !</h1>
-        <button className="edit-button">Edit Name</button>
+        <h1>Welcome back<br /> {firstName} {lastName} !</h1>
+        <button className="edit-button" onClick={()=>history.push('/profile')}>Edit Name</button>
       </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
