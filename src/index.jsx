@@ -4,8 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './utils/Style/main.css';
 import App from './pages/Home';
 import Login from './pages/Login/index';
-import ModifyUser from './pages/ModifyUser'
-import CreateUser from './pages/CreateUser'
+import Profile from './pages/Profile'
 import User from './pages/User'
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -24,11 +23,8 @@ ReactDOM.render(
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/newUser">
-            <CreateUser />
-          </Route>
           <Route path="/profile">
-            <ModifyUser />
+            <Profile />
           </Route>
           <Route path="/user">
             <User />
