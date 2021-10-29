@@ -1,14 +1,33 @@
 import '../../utils/Style/main.css'
-import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+//import { useHistory } from 'react-router'
+import { useStore } from 'react-redux'
+import { getOrModifyUser } from '../../features/user'
 
 function User() {
+  const [connexion, setConnexion] = useState(false)
   
-  const username = useSelector((state) => state.username)
+  const store = useStore()
+  //const history = useHistory()
+  if (connexion === false) {
+    setConnexion(true)
+  }
+
+  useEffect(() => {
+    getOrModifyUser(store, { method: 'post' })
+    console.log(connexion)
+  }, [store, connexion])
+
+  console.log(store.getState().user.data.firstName)
   
+  /* if (store.getState().auth.status !== 'authorized') {
+    history.push('/user')
+  } else {} */
+
   return (
     <main className="main bg-dark">
       <div className="header">
-        <h1>Welcome back<br />{username} !</h1>
+        <h1>Welcome back<br />NOM !</h1>
         <button className="edit-button">Edit Name</button>
       </div>
       <h2 className="sr-only">Accounts</h2>
