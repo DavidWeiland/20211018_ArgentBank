@@ -4,7 +4,7 @@ import { useStore } from 'react-redux'
 import { authorizeUser } from '../../features/user'
 import { Link, useHistory } from 'react-router-dom'
 
-export default function SignIn() {
+export default function Login() {
   const store = useStore()
 
   const [email, setEmail] = useState('')
@@ -33,7 +33,7 @@ export default function SignIn() {
       password:password
     }
     authorizeUser(store, body)
-    console.log(store.getState().auth.data.token)
+    //console.log(store.getState().auth.data.token)
     history.push('/user')
   }
   

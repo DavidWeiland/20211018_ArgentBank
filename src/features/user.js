@@ -45,7 +45,7 @@ export async function createUser(store, body) {
 }
 
 export async function authorizeUser(store, body) {
-  const status = store.getState().auth.status
+  const status = store.getState().user.status
   if (status === 'pending' || status === 'updating') {
     return
   }
