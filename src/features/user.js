@@ -2,7 +2,9 @@ import produce from 'immer'
 
 const initialState = {
   status: 'void',
-  auth: null,
+  auth: {
+    token: null,
+  },
   data: {
     id: null,
     lastName: null,
@@ -17,12 +19,14 @@ const FETCHING = 'user/fetching'
 const RESOLVED = 'user/resolved'
 const AUTHORIZED = 'user/authorized'
 const REJECTED = 'user/rejected'
+const RESET = 'user/reset'
 
 
 export const userFetching = () => ({ type: FETCHING })
 export const userResolved = (data) => ({ type: RESOLVED, payload: data })
 export const userAuthorized = (data) => ({ type: AUTHORIZED, payload: data })
 export const userRejected = (error) => ({ type: REJECTED, payload: error })
+export const userReset = () => ({type:RESET})
 
 
 
@@ -64,8 +68,13 @@ export default function userReducer(state = initialState, action) {
           draft.error = action.payload
           draft.data = null
           draft.status = 'rejected'
+          localStorage.removeItem('localEmail')
+          localStorage.removeItem('localPassword')
         }
         return
+      }
+      case RESET: {
+        return initialState
       }
       
       default:

@@ -25,19 +25,23 @@ export default function Login() {
     
   })
 
-  const history = useHistory()
+  const history = useHistory() 
 
-  function connection() {
+  const connexion = (() => {
     const method = 'post'
     const path = '/login'
     const body = {
       email: email,
       password: password,
     }
+    if (rememberMe === true) {
+      localStorage.setItem('localEmail', email)
+      localStorage.setItem('localPassword', password)
+    }
     const token = ''
     getOrModifyUser(store, method, path, body, token)
-    history.push('/user')
-  }
+    history.push('/profile')
+  })
   
   return (
     <main className="main bg-dark">
@@ -57,7 +61,7 @@ export default function Login() {
             <input type="checkbox" id="remember-me" name='RememberMe' checked={rememberMe} onChange={handleChange}/>
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          <button className="sign-in-button" onClick={() => { connection() }}>
+          <button className="sign-in-button" onClick={connexion}>
             Sign In
           </button>
         </form>
