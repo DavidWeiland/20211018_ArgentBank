@@ -174,17 +174,6 @@ body {
   color: #fff;
 }
 
-.modify-button {
-  display: block;
-  width: 100%;
-  padding: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-top: 1rem;
-  border-color: #bc7100;
-  background-color: #bc7100;
-  color: #fff;
-}
 .sign-in-content {
   box-sizing: border-box;
   background-color: white;
@@ -219,6 +208,25 @@ body {
 .input-wrapper input {
   padding: 5px;
   font-size: 1.2rem;
+}
+
+.form-changing-wrapper{
+  display: flex;
+  justify-content: center;
+  width: 500px;
+  margin:auto;
+}
+
+.input-changing-wrapper {
+  display: flex;
+  text-align: left;
+  margin-left:5px;
+  margin-right:5px;
+}
+
+.input-changing-wrapper input {
+  padding: 5px;
+  font-size: 1.4rem;
 }
 
 .footer {
@@ -277,6 +285,17 @@ body {
   color: #fff;
   font-weight: bold;
   padding: 10px;
+}
+
+.modify-button {
+  border-color: #00bc77;
+  background-color: #00bc77;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px;
+  width : 100px;
+  margin-left:5px;
+  margin-right:5px;
 }
 
 .header {
