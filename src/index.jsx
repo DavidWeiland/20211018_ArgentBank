@@ -5,7 +5,6 @@ import './utils/Style/main.css';
 import App from './pages/Home';
 import Login from './pages/Login/index';
 import Profile from './pages/Profile'
-import User from './pages/User'
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { Provider } from 'react-redux';
@@ -25,9 +24,6 @@ ReactDOM.render(
           </Route>
           <Route path="/profile">
             <Profile />
-          </Route>
-          <Route path="/user">
-            <User />
           </Route>
         </Switch>
         <Footer />
