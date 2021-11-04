@@ -1,4 +1,4 @@
-import produce from 'immer'
+import { createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
   status: 'void',
@@ -15,70 +15,56 @@ const initialState = {
   error: null
 }
 
-const FETCHING = 'user/fetching'
-const RESOLVED = 'user/resolved'
-const AUTHORIZED = 'user/authorized'
-const REJECTED = 'user/rejected'
-const RESET = 'user/reset'
-
-
-export const userFetching = () => ({ type: FETCHING })
-export const userResolved = (data) => ({ type: RESOLVED, payload: data })
-export const userAuthorized = (data) => ({ type: AUTHORIZED, payload: data })
-export const userRejected = (error) => ({ type: REJECTED, payload: error })
-export const userReset = () => ({type:RESET})
-
-
-
-export default function userReducer(state = initialState, action) {
-  return produce(state, (draft) => {
-    switch (action.type) {
-      case FETCHING: {
-        if (draft.status === 'void') {
-          draft.status = 'pending'
-          return
-        }
-        if (draft.status === 'rejected') {
-          draft.error = null
-          draft.status = 'pending'
-          return
-        }
-        if (draft.status === 'resolved' || draft.status === 'authorized') {
-          draft.status = 'updating'
-          return
-        }
+const { actions, reducer } = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    fetching: (draft) => {
+      if (draft.status === 'void') {
+        draft.status = 'pending'
         return
       }
-      case RESOLVED: {
-        if (draft.status === 'pending' || draft.status === 'updating' || draft.status === 'authorized') {
-          draft.data = action.payload
-          draft.status = 'resolved'
-        }
+      if (draft.status === 'rejected') {
+        draft.error = null
+        draft.status = 'pending'
         return
       }
-      case AUTHORIZED: {
-        if (draft.status === 'pending' || draft.status === 'updating') {
-          draft.auth = action.payload
-          draft.status = 'authorized'
-        }
+      if (draft.status === 'resolved' || draft.status === 'authorized') {
+        draft.status = 'updating'
         return
       }
-      case REJECTED: {
-        if (draft.status === 'pending' || draft.status === 'updating') {
-          draft.error = action.payload
-          draft.data = null
-          draft.status = 'rejected'
-          localStorage.removeItem('localEmail')
-          localStorage.removeItem('localPassword')
-        }
-        return
+      return
+    },
+    resolved: (draft, action) => {
+      if (draft.status === 'pending' || draft.status === 'updating' || draft.status === 'authorized') {
+        draft.data = action.payload
+        draft.status = 'resolved'
       }
-      case RESET: {
-        return initialState
+      return
+    },
+    authorized: (draft, action) => {
+      if (draft.status === 'pending' || draft.status === 'updating') {
+        draft.auth = action.payload
+        draft.status = 'authorized'
       }
-      
-      default:
-        return
+      return
+    },
+    rejected: (draft, action) => {
+      if (draft.status === 'pending' || draft.status === 'updating') {
+        draft.error = action.payload
+        draft.data = null
+        draft.status = 'rejected'
+        localStorage.removeItem('localEmail')
+        localStorage.removeItem('localPassword')
+      }
+      return
+    },
+    reset: () => {
+      return initialState
     }
-  })
-}
+  }
+})
+
+export const { fetching, resolved, authorized, rejected, reset } = actions
+
+export default reducer

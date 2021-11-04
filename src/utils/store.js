@@ -1,11 +1,8 @@
-import { combineReducers, createStore } from 'redux'
 import userReducer from '../features/user'
+import { configureStore } from '@reduxjs/toolkit'
 
-
-const reducer = combineReducers({
-  user: userReducer,
+export const store = configureStore({
+  reducer: {
+    user: userReducer,
+  }
 })
-
-const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-
-export const store = createStore(reducer, reduxDevTools)

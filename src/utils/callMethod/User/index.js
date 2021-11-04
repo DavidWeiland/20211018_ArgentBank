@@ -1,27 +1,29 @@
 import axios from 'axios'
 import { baseUrl } from '../../data'
 import { selectUser } from '../../selectors'
-import { userAuthorized, userFetching, userRejected, userResolved } from '../../../features/user'
+import * as userActions from '../../../features/user'
 
-export async function getOrModifyUser(store, method, path, body, token) {
-  const status = selectUser(store.getState()).status
-  const headers = {
-    'Authorization': `Bearer ${token}`
-  }
-  if (status === 'pending' || status === 'updating') {
-    return 
-  }
-  store.dispatch(userFetching())
-  try {
-    const response = await axios({method:method, url:`${baseUrl}/user${path}`, data:body, headers:headers})
-    const responseData = await response.data.body
-    if (path === '/login') {
-      (store.dispatch(userAuthorized(responseData)))
-    } else {
-      (store.dispatch(userResolved(responseData)))
+export function getOrModifyUser(method, path, body, token) {
+  return async (dispatch, getState) => {
+    const status = selectUser(getState()).status
+    const headers = {
+      'Authorization': `Bearer ${token}`
     }
-  }
-  catch (error) {
-    store.dispatch(userRejected(error))
+    if (status === 'pending' || status === 'updating'){
+      return 
+    }
+    dispatch(userActions.fetching())
+    try {
+      const response = await axios({method:method, url:`${baseUrl}/user${path}`, data:body, headers:headers})
+      const responseData = await response.data.body
+      if (path === '/login') {
+        (dispatch(userActions.authorized(responseData)))
+      } else {
+        (dispatch(userActions.resolved(responseData)))
+      }
+    }
+    catch (error) {
+      dispatch(userActions.rejected(error))
+    }
   }
 }

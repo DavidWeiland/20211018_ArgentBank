@@ -1,11 +1,11 @@
 import '../../utils/Style/main.css'
 import { useState } from 'react'
-import { useStore } from 'react-redux'
+import { useDispatch} from 'react-redux'
 import { getOrModifyUser } from '../../utils/callMethod/User'
 import { useHistory } from 'react-router-dom'
 
 export default function Login() {
-  const store = useStore()
+  const dispatch = useDispatch()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -39,7 +39,7 @@ export default function Login() {
       localStorage.setItem('localPassword', password)
     }
     const token = ''
-    getOrModifyUser(store, method, path, body, token)
+    dispatch(getOrModifyUser(method, path, body, token))
     history.push('/profile')
   })
   

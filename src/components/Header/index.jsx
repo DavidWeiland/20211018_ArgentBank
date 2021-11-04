@@ -2,13 +2,13 @@ import '../../utils/Style/main.css'
 import Logo from '../../assets/Images/argentBankLogo.png'
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useStore} from 'react-redux'
+import { useSelector, useDispatch} from 'react-redux'
 import { selectUser } from '../../utils/selectors'
 import { getOrModifyUser } from '../../utils/callMethod/User'
-import { userReset } from '../../features/user'
+import * as userActions from '../../features/user'
 
 export default function Header() {
-  const store = useStore()
+  const dispatch = useDispatch()
 
   const email = localStorage.getItem('localEmail')
   const password = localStorage.getItem('localPassword')
@@ -21,8 +21,8 @@ export default function Header() {
       password: password,
     }
     const token = ''
-    getOrModifyUser(store, method, path, body, token)
-  }, [store, email, password])
+    dispatch(getOrModifyUser(method, path, body, token))
+  }, [dispatch, email, password])
 
   const userInfos = useSelector(selectUser)
 
@@ -33,16 +33,15 @@ export default function Header() {
     const method = 'post'
     const path = '/profile'
     const body = {}
-    getOrModifyUser(store, method, path, body, token)
-  }, [store, token])  
+    dispatch(getOrModifyUser(method, path, body, token))
+  }, [dispatch, token])  
   
   const status = userInfos.status
-  console.log(localStorage.getItem('localEmail'), localStorage.getItem('localPassword'))
 
   const signout = (() => {
     localStorage.removeItem('localEmail')
     localStorage.removeItem('localPassword')
-    store.dispatch(userReset())
+    dispatch(userActions.reset())
   })
       return (
         <nav className="main-nav">

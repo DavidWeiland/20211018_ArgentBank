@@ -2,7 +2,7 @@ import '../../utils/Style/main.css'
 //import { useEffect } from 'react'
 import { useState } from 'react'
 import { Redirect } from 'react-router-dom'
-import { useSelector, useStore } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { selectUser } from '../../utils/selectors'
 import { getOrModifyUser } from '../../utils/callMethod/User'
 import { Loader } from '../../utils/Style/Loader'
@@ -16,7 +16,7 @@ export default function Profile() {
 
   const [editName, setEditName] = useState(false)
 
-  const store = useStore()
+  const dispatch = useDispatch()
 
   const [firstNameState, setFirstNameState] = useState('')
   const [lastNameState, setLastNameState] = useState('')
@@ -51,8 +51,8 @@ export default function Profile() {
     const method = 'post'
     const path = '/profile'
     const body = {}
-    getOrModifyUser(store, method, path, body, token)
-  }, [store, token]) */
+    dispatch(getOrModifyUser(method, path, body, token))
+  }, [dispatch, token]) */
 
   const modify = (()=> {
     const method = 'put'
@@ -62,7 +62,7 @@ export default function Profile() {
       lastName:lastNameState
     }
     const token = userInfos.auth?.token
-    getOrModifyUser(store, method, path, body, token)
+    dispatch(getOrModifyUser(method, path, body, token))
     handleEdit()
   })
 
