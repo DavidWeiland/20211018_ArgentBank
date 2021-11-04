@@ -26,6 +26,7 @@
     "react-scripts": "4.0.3",
     "redux": "^4.1.1",
     "set-value": "^4.1.0",
+    "styled-components": "^5.3.3",
     "tar": "^6.1.11",
     "tmpl": "^1.0.5",
     "url-parse": "^1.5.3",
