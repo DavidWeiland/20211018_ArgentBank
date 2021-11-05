@@ -3,8 +3,7 @@ import ChatIcon from '../../assets/Images/icon-chat.png'
 import MoneyIcon from '../../assets/Images/icon-money.png'
 import SecurityIcon from '../../assets/Images/icon-security.png'
 
-
-function App() {
+export default function App() {
   return (
     <main>
       <div className="hero">
@@ -19,7 +18,11 @@ function App() {
       <section className="features">
         <h2 className="sr-only">Features</h2>
         <div className="feature-item">
-          <img src={ChatIcon} alt="Chat Icon" className="feature-icon" />
+          <img
+            src={ChatIcon}
+            alt="Chat Icon"
+            className="feature-icon"
+          />
           <h3 className="feature-item-title">You are our #1 priority</h3>
           <p>
             Need to talk to a representative? You can get in touch through our
@@ -53,5 +56,3 @@ function App() {
     </main>
   );
 }
-
-export default App;

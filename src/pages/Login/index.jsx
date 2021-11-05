@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom'
 
 export default function Login() {
   const store = useStore()
+  const history = useHistory()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -22,10 +23,7 @@ export default function Login() {
           setEmail(value)
           : setPassword(value)
       )
-    
   })
-
-  const history = useHistory() 
 
   const connexion = (() => {
     const method = 'post'
@@ -51,17 +49,38 @@ export default function Login() {
           <form>
           <div className="input-wrapper">
             <label htmlFor="email">Username</label>
-            <input type="text" id="email" name='Email' value={email} onChange={handleChange}/>
+            <input
+              type="text"
+              id="email"
+              name='Email'
+              value={email}
+              onChange={handleChange}
+            />
           </div>
           <div className="input-wrapper">
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" name='Password' value={password} onChange={handleChange}/>
+            <input
+              type="password"
+              id="password"
+              name='Password'
+              value={password}
+              onChange={handleChange}  
+            />
           </div>
           <div className="input-remember">
-            <input type="checkbox" id="remember-me" name='RememberMe' checked={rememberMe} onChange={handleChange}/>
+            <input
+              type="checkbox"
+              id="remember-me"
+              name='RememberMe'
+              checked={rememberMe}
+              onChange={handleChange}
+            />
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          <button className="sign-in-button" onClick={connexion}>
+          <button
+            className="sign-in-button"
+            onClick={connexion}
+          >
             Sign In
           </button>
         </form>
