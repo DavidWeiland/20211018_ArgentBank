@@ -4,14 +4,29 @@ import { useStore } from 'react-redux'
 import { getOrModifyUser } from '../../utils/callMethod/User'
 import { useHistory } from 'react-router-dom'
 
+/**
+ * Login page of the application
+ * 
+ * @returns { ReactElement }
+ */
 export default function Login() {
   const store = useStore()
   const history = useHistory()
 
+/**
+ * State to view inputs
+ */
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
-  
+
+/**
+ * Change the state
+ * @function handleChange
+ * @param { Object } e event
+ * @param { String } value firstName or lastName from form
+ * @param { Boolean } value rememberMe from form
+ */
   const handleChange = ((e) => {
     const target = e.target
     const value = target.type === 'checkbox' ? target.checked : target.value
@@ -25,13 +40,30 @@ export default function Login() {
       )
   })
 
-  const connexion = (() => {
+/**
+   * Authentification of the user entered in the connection form
+   * @function connection
+   * @param { Object } store with status 'rejected' after first useEffect fails
+   * @param { String } email from form
+   * @param { String } password from form
+   * @param { Boolean } rememberMe from form
+   * 
+   * if email and password correspond to a registered user in database
+   * @returns { Object } store with token and status 'resolved' and push to profile page
+   * 
+   * if email or passaword is empty or if email or password doesn't corresponds to a registered user in database
+   * @return { Object } store with status 'rejected' and push to profile page
+   */
+  const connection = (() => {
     const method = 'post'
     const path = '/login'
     const body = {
       email: email,
       password: password,
     }
+
+    /**
+     * this allows to save email and password in locaStorage for an automatic connection event after closing the browser */
     if (rememberMe === true) {
       localStorage.setItem('localEmail', email)
       localStorage.setItem('localPassword', password)
@@ -79,7 +111,7 @@ export default function Login() {
           </div>
           <button
             className="sign-in-button"
-            onClick={connexion}
+            onClick={connection}
           >
             Sign In
           </button>

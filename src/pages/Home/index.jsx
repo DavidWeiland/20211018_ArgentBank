@@ -3,6 +3,11 @@ import ChatIcon from '../../assets/Images/icon-chat.png'
 import MoneyIcon from '../../assets/Images/icon-money.png'
 import SecurityIcon from '../../assets/Images/icon-security.png'
 
+/**
+ * First page of the application
+ * 
+ * @returns { ReactElement }
+ */
 export default function App() {
   return (
     <main>

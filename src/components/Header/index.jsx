@@ -7,12 +7,34 @@ import { selectUser } from '../../utils/selectors'
 import { getOrModifyUser } from '../../utils/callMethod/User'
 import { userReset } from '../../features/user'
 
+/**
+ * Header of the application
+ * 
+ * @returns { ReactElement }
+ */
 export default function Header() {
-  const store = useStore()
 
+  const store = useStore()
   const email = localStorage.getItem('localEmail')
   const password = localStorage.getItem('localPassword')
 
+  /**
+   * Both useEffects allow automatic connection
+   */
+
+  /**
+   * Authentification of the user registered in the localStorage
+   * @function useEffect
+   * @param { Object } store INIT with status 'void'
+   * @param { String } email from localStorage
+   * @param { String } password from localStorage
+   * 
+   * if email and password are differents from null and if email and password correspond to a registered user in database
+   * @returns { Object } store with token and status 'resolved'
+   * 
+   * if email or passaword is empty or if email or password doesn't corresponds to a registered user in database
+   * @return { Object } store with status 'rejected'
+   */
   useEffect(() => {
     const method = 'post'
     const path = '/login'
@@ -25,10 +47,22 @@ export default function Header() {
   }, [store, email, password])
 
   const userInfos = useSelector(selectUser)
-
   const firstName = userInfos.data?.firstName
   const token = userInfos.auth?.token
   
+  /**
+   * Connect the user registered in database
+   * @function useEffect
+   * @param { Object } store
+   * @param { String } token from store
+   * 
+   * If first useEffect or function connection()(see login.jsx) returns a store with status 'resolved' and a token
+   * @returns { Object } store with user's informations and status 'resolved'
+   * 
+   * If first useEffect or function connection()(see login.jsx) returns a store with status 'rejected' and without token
+   * @returns { Object } store with status 'rejected'
+   */
+
   useEffect(() => {
     const method = 'post'
     const path = '/profile'
@@ -36,8 +70,14 @@ export default function Header() {
     getOrModifyUser(store, method, path, body, token)
   }, [store, token])  
   
+  /**
+   * Needs store.status to change appearance
+   */
   const status = userInfos.status
-  console.log(localStorage.getItem('localEmail'), localStorage.getItem('localPassword'))
+
+  /**
+   * Logs out the connected user and empties localStorage
+   */
 
   const signout = (() => {
     localStorage.removeItem('localEmail')

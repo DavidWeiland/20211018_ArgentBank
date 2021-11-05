@@ -1,5 +1,8 @@
 import produce from 'immer'
 
+/**
+ * @param { Object } store INIT with status 'void'
+ */
 const initialState = {
   status: 'void',
   auth: {
@@ -21,15 +24,55 @@ const AUTHORIZED = 'user/authorized'
 const REJECTED = 'user/rejected'
 const RESET = 'user/reset'
 
-
+/**
+ * User action
+ * @function userFetching action fetching
+ * @param { String } type
+ */
 export const userFetching = () => ({ type: FETCHING })
+
+/**
+ * User action
+ * @function userResolved action resolved
+ * @param { String } type
+ * @param { Object } data from axios.response
+ */
 export const userResolved = (data) => ({ type: RESOLVED, payload: data })
+
+/**
+ * User action
+ * @function userAuthorized action authorized
+ * @param { String } type
+ * @param { Object } data from axios.response
+ */
 export const userAuthorized = (data) => ({ type: AUTHORIZED, payload: data })
+
+/**
+ * User action
+ * @function userRejected action rejected
+ * @param { String } type
+ * @param { Object } error from axios.response
+ */
 export const userRejected = (error) => ({ type: REJECTED, payload: error })
-export const userReset = () => ({type:RESET})
+
+/**
+ * User action
+ * @function userReset action reset
+ * @param { String } type
+ */
+export const userReset = () => ({ type: RESET })
 
 
-
+/**
+ * User reducer
+ * @function userReducer
+ * @param { Object } store INIT
+ * @param { Object } action
+ * @param { String } action.type
+ * @param { Object } action.payload data or error
+ * 
+ * @returns { Object } store
+ */
 export default function userReducer(state = initialState, action) {
   return produce(state, (draft) => {
     switch (action.type) {
@@ -76,7 +119,6 @@ export default function userReducer(state = initialState, action) {
       case RESET: {
         return initialState
       }
-      
       default:
         return
     }

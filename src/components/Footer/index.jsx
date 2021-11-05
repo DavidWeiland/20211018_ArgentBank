@@ -1,6 +1,10 @@
 import '../../utils/Style/main.css'
 
-
+/**
+ * Footer of the application
+ * 
+ * @returns { ReactElement }
+ */
 function Footer() {
   return (
     <footer className="footer">
