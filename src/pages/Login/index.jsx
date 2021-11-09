@@ -42,7 +42,7 @@ export default function Login() {
 
 /**
    * Authentification of the user entered in the connection form
-   * @function connection
+   * @function getToken
    * @param { Object } store with status 'rejected' after first useEffect fails
    * @param { String } email from form
    * @param { String } password from form
@@ -54,7 +54,7 @@ export default function Login() {
    * if email or passaword is empty or if email or password doesn't corresponds to a registered user in database
    * @return { Object } store with status 'rejected' and push to profile page
    */
-  const connection = (() => {
+  const getToken = (() => {
     const method = 'post'
     const path = '/login'
     const body = {
@@ -111,7 +111,7 @@ export default function Login() {
           </div>
           <button
             className="sign-in-button"
-            onClick={connection}
+            onClick={getToken}
           >
             Sign In
           </button>
